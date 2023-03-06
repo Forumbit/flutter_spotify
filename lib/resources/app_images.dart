@@ -34,6 +34,7 @@ class AppImages {
   static const String phoneIcon = 'assets/images/phone_icon.png';
   static const String play = 'assets/images/play.png';
   static const String playlistImage = 'assets/images/playlist_image.png';
+  static const String profil = 'assets/images/profil.png';
   static const String search = 'assets/images/search.png';
   static const String settings = 'assets/images/settings.png';
   static const String share = 'assets/images/share.png';
