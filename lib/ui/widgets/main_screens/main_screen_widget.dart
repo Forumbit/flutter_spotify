@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spotify/resources/resources.dart';
 import 'package:flutter_spotify/ui/components/bottomNavigationBarSpotify.dart';
+import 'package:flutter_spotify/ui/components/scaffold_app_bar_widget.dart';
 import 'package:flutter_spotify/ui/widgets/main_screens/history/history_widget.dart';
 import 'package:flutter_spotify/ui/widgets/main_screens/home/home_widget.dart';
 import 'package:flutter_spotify/ui/widgets/main_screens/main_screen_model.dart';
@@ -14,28 +15,7 @@ class MainScreenWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentIndex = context.watch<MainScreenModel>().currentIndex;
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 75,
-        automaticallyImplyLeading: false,
-        title: const Image(image: AssetImage(AppImages.spotify)),
-        centerTitle: true,
-        leadingWidth: 100,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Image(
-            image: AssetImage(AppImages.search),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 24),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Image(image: AssetImage(AppImages.settings)),
-            ),
-          ),
-        ],
-      ),
+      appBar: ScaffoldAppBar.scaffoldAppBarFunction(currentIndex),
       body: IndexedStack(
         index: currentIndex,
         children: const [

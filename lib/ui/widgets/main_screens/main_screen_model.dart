@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spotify/resources/resources.dart';
 
 class MainScreenModel extends ChangeNotifier {
   var _currentIndex = 0;
