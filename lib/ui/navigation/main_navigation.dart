@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spotify/domain/entities/track.dart';
 import 'package:flutter_spotify/domain/factories/screen_factory.dart';
+import 'package:flutter_spotify/ui/widgets/detail_screens/track_widget.dart';
 import 'package:flutter_spotify/ui/widgets/start_screens/get_started/sign_up_widget.dart';
 import 'package:flutter_spotify/ui/widgets/start_screens/get_started/continue_widget.dart';
 import 'package:flutter_spotify/ui/widgets/start_screens/get_started/get_started_widget.dart';
@@ -15,6 +18,8 @@ abstract class MainNavigationRouteNames {
   static const playlist = '/home/playlist';
   static const history = '/home/history';
   static const profil = '/home/profil';
+
+  static const trackDetail = '/home/track_detail/';
 }
 
 class MainNavigation {
@@ -28,4 +33,18 @@ class MainNavigation {
     MainNavigationRouteNames.logIn: (_) => _screenFactory.makeLogIn(),
     MainNavigationRouteNames.home: (_) => _screenFactory.makeMainScreen(),
   };
+
+  Route<Object>? onGenerateRoute(settings) {
+    switch (settings.name) {
+      case MainNavigationRouteNames.trackDetail:
+        final arguments = settings.arguments;
+        final track = arguments is Track ? arguments : null;
+        return MaterialPageRoute(
+          builder: (_) => TrackWidget(track: track),
+        );
+      default:
+        const widget = Text('Navigation error!!!');
+        return MaterialPageRoute(builder: (_) => widget);
+    }
+  }
 }

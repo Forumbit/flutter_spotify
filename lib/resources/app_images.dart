@@ -40,6 +40,7 @@ class AppImages {
   static const String share = 'assets/images/share.png';
   static const String spotify = 'assets/images/spotify.png';
   static const String sun = 'assets/images/sun.png';
+  static const String trackImage = 'assets/images/track_image.png';
   static const String tracks = 'assets/images/tracks.png';
   static const String userActive = 'assets/images/user_active.png';
   static const String userDiasble = 'assets/images/user_diasble.png';

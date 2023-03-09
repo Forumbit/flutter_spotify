@@ -1,8 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spotify/domain/entities/track.dart';
 import 'package:flutter_spotify/resources/resources.dart';
 import 'package:flutter_spotify/styles/app_colors.dart';
+import 'package:flutter_spotify/ui/navigation/main_navigation.dart';
+import 'package:flutter_spotify/ui/widgets/main_screens/home/home_model.dart';
 import 'package:flutter_spotify/ui/widgets/main_screens/home/tabs/artists_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -219,6 +223,7 @@ class _TracksWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tracks = context.watch<HomeModel>().tracks;
     return Container(
       padding: const EdgeInsets.only(left: 32),
       height: 170,
@@ -226,9 +231,9 @@ class _TracksWidget extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemExtent: 144,
         scrollDirection: Axis.horizontal,
-        itemCount: 10,
+        itemCount: tracks.length,
         itemBuilder: (BuildContext context, int index) {
-          return const _TracksWidgetItem();
+          return _TracksWidgetItem(index: index);
         },
       ),
     );
@@ -236,12 +241,15 @@ class _TracksWidget extends StatelessWidget {
 }
 
 class _TracksWidgetItem extends StatelessWidget {
+  final int index;
   const _TracksWidgetItem({
     Key? key,
+    required this.index
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final track = context.read<HomeModel>().tracks[index];
     return Padding(
       padding: const EdgeInsets.only(right: 16),
       child: Stack(
@@ -253,9 +261,7 @@ class _TracksWidgetItem extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: const Image(
-                      image: AssetImage(AppImages.tracks),
-                    ),
+                    child: Image.network(track.image.replaceAll('\\/', '/')),
                   ),
                   Positioned(
                     right: 8,
@@ -276,20 +282,20 @@ class _TracksWidgetItem extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              const Text(
-                'ArTi Untuk Cinta',
+              Text(
+                track.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                 ),
               ),
-              const Text(
-                'Arsy Widianto, Tiaragen',
+              Text(
+                track.artistName,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 12),
               ),
             ],
           ),
@@ -297,7 +303,7 @@ class _TracksWidgetItem extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               borderRadius: BorderRadius.circular(12),
-              onTap: () {},
+              onTap: () => Navigator.pushNamed(context, MainNavigationRouteNames.trackDetail, arguments: track),
             ),
           )
         ],

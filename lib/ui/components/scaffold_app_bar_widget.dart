@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spotify/domain/api_clients/api_client.dart';
 import 'package:flutter_spotify/resources/resources.dart';
 import 'package:flutter_spotify/styles/app_colors.dart';
 
@@ -22,7 +23,7 @@ abstract class ScaffoldAppBar {
             Padding(
               padding: const EdgeInsets.only(right: 24),
               child: IconButton(
-                onPressed: () {},
+                onPressed: (){},
                 icon: const Image(image: AssetImage(AppImages.settings)),
               ),
             ),
