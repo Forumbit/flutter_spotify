@@ -9,7 +9,7 @@ class ApiClient {
   Future<List<Track>> getTracks() async {
     const limit = 10;
     final url = Uri.parse(
-        '$hostUrl/tracks/?client_id=$clientId&format=jsonpretty&limit=$limit');
+        '$hostUrl/tracks/?client_id=$clientId&format=jsonpretty&limit=$limit&boost=popularity_week');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
